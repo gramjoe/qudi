@@ -111,19 +111,19 @@ class WavemeterLogGui(GUIBase):
         self._pw.setLabel('bottom', 'Wavelength', units='nm')
         self._pw.setLabel('top', 'Relative Frequency', units='Hz')
 
-        self._mw.actionStop_resume_scan.triggered.connect(self.stop_resume_clicked)
+        self._mw.actionStop_resume_scan.triggered.connect(self.stop_resume_clicked) #TODO check this!
         self._mw.actionSave_histogram.triggered.connect(self.save_clicked)
         self._mw.actionStart_scan.triggered.connect(self.start_clicked)
         self._mw.actionAuto_range.triggered.connect(self.set_auto_range)
 
         # defining the parameters to edit
-        self._mw.binSpinBox.setValue(self._wm_logger_logic.get_bins())
+        self._mw.binSpinBox.setValue(self._wm_logger_logic.get_bins()) #TODO check this also!
         self._mw.binSpinBox.editingFinished.connect(self.recalculate_histogram)
 
-        self._mw.minDoubleSpinBox.setValue(self._wm_logger_logic.get_min_wavelength())
+        self._mw.minDoubleSpinBox.setValue(self._wm_logger_logic.get_min_wavelength()) #TODO this currently doesn't work!!!
         self._mw.minDoubleSpinBox.editingFinished.connect(self.recalculate_histogram)
 
-        self._mw.maxDoubleSpinBox.setValue(self._wm_logger_logic.get_max_wavelength())
+        self._mw.maxDoubleSpinBox.setValue(self._wm_logger_logic.get_max_wavelength()) #TODO also problems here!!!
         self._mw.maxDoubleSpinBox.editingFinished.connect(self.recalculate_histogram)
 
         self._mw.show()
