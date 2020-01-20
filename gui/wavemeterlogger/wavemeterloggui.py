@@ -126,6 +126,10 @@ class WavemeterLogGui(GUIBase):
         self._mw.maxDoubleSpinBox.setValue(self._wm_logger_logic.get_max_wavelength()) #TODO also problems here!!!
         self._mw.maxDoubleSpinBox.editingFinished.connect(self.recalculate_histogram)
 
+        self._mw.maxDoubleSpinBox.setToolTip('All data corresponding to wavelengths larger than this will be thrown away. To adjust axes without modifying data, right click plot!')
+        self._mw.minDoubleSpinBox.setToolTip(
+            'All data corresponding to wavelengths smaller than this will be thrown away. To adjust axes without modifying data, right click plot')
+
         self._mw.show()
 
         ## Create an empty plot curve to be filled later, set its pen
@@ -139,15 +143,15 @@ class WavemeterLogGui(GUIBase):
             symbol=None
             )
 
-        self.curve_hz_counts = pg.PlotDataItem(
-            pen=pg.mkPen(palette.c6, style=QtCore.Qt.DotLine),
-            symbol=None
-            )
+     #   self.curve_hz_counts = pg.PlotDataItem( #hz plot, commented
+     #       pen=pg.mkPen(palette.c6, style=QtCore.Qt.DotLine),
+     #       symbol=None
+     #       )
 
-        self.curve_envelope = pg.PlotDataItem(
-            pen=pg.mkPen(palette.c3, style=QtCore.Qt.DotLine),
-            symbol=None
-            )
+     #   self.curve_envelope = pg.PlotDataItem( #commenting curve_envelope for now
+     #       pen=pg.mkPen(palette.c3, style=QtCore.Qt.DotLine),
+     #       symbol=None
+     #       )
 
         self.curve_fit = pg.PlotDataItem(
             pen=pg.mkPen(palette.c2, width=3),
@@ -155,9 +159,9 @@ class WavemeterLogGui(GUIBase):
             )
 
         self._pw.addItem(self.curve_data_points)
-        self._pw.addItem(self.curve_envelope)
+     #   self._pw.addItem(self.curve_envelope) #commenting curve_envelope for now
         self._right_axis.addItem(self.curve_nm_counts)
-        self._top_axis.addItem(self.curve_hz_counts)
+        #self._top_axis.addItem(self.curve_hz_counts) #hz plot, commented
 
         # scatter plot for time series
         self._spw = self._mw.scatterPlotWidget
@@ -212,8 +216,8 @@ class WavemeterLogGui(GUIBase):
             self.curve_data_points.setData(plotdata[:, 2:0:-1])
 
         self.curve_nm_counts.setData(x=x_axis, y=self._wm_logger_logic.histogram)
-        self.curve_hz_counts.setData(x=x_axis_hz, y=self._wm_logger_logic.histogram)
-        self.curve_envelope.setData(x=x_axis, y=self._wm_logger_logic.envelope_histogram)
+#        self.curve_hz_counts.setData(x=x_axis_hz, y=self._wm_logger_logic.histogram) #hz plot, commented
+#        self.curve_envelope.setData(x=x_axis, y=self._wm_logger_logic.envelope_histogram) #commenting curve_envelope for now
 
     @QtCore.Slot()
     def doFit(self):

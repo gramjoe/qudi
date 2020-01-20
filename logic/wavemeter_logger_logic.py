@@ -412,7 +412,7 @@ class WavemeterLoggerLogic(GenericLogic):
         if complete_histogram:
             count_window = len(self._counter_logic._data_to_save)
             self._data_index = 0
-            self.log.info('Recalcutating Laser Scanning Histogram for: '
+            self.log.info('Recalculating Laser Scanning Histogram for: '
                           '{0:d} counts and {1:d} wavelength.'.format(
                               count_window,
                               len(self._wavelength_data)
@@ -432,9 +432,10 @@ class WavemeterLoggerLogic(GenericLogic):
         if len(self._wavelength_data) > 0:
 
             for i in self._wavelength_data[self._data_index:]:
+
                 self._data_index += 1
 
-                if i[1] < self._xmin or i[1] > self._xmax:
+                if i[1] < self._xmin or i[1] > self._xmax: #throws away all data with wavelengths not within xmin and xmax!!!!
                     continue
 
                 # calculate the bin the new wavelength needs to go in
